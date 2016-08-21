@@ -9,8 +9,9 @@
 #import "ViewController.h"
 #import "AFNetworking.h"
 #import "AppsModel.h"
+#import "UIImageView+WebCache.h"
 
-@interface ViewController ()
+@interface ViewController ()<UITableViewDataSource>
 
 @end
 
@@ -25,6 +26,34 @@
     [super viewDidLoad];
     [self loadJsonData];
 }
+#pragma UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _appsList.count;
+}
+
+/*
+ 问题1 : 列表显示出来后，并不显示图片，来回滚动cell或者点击cell ，图片才会显示。
+ */
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AppsCell" forIndexPath:indexPath];
+    
+    // 获取cell对应的数据模型
+    AppsModel *app = _appsList[indexPath.row];
+    
+    // 给cell的子控件赋值
+    cell.textLabel.text = app.name;
+    cell.detailTextLabel.text = app.download;
+    
+    //利用SDWebImage框架 下载图片
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:app.icon]];
+    
+    return cell;
+}
+
+
 /// 获取json数据的主方法
 - (void)loadJsonData
 {
