@@ -36,6 +36,7 @@
 		38B8F0321D69969E00B6998B /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B8F01B1D69969E00B6998B /* UIImageView+WebCache.m */; };
 		38B8F0331D69969E00B6998B /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B8F01D1D69969E00B6998B /* UIView+WebCacheOperation.m */; };
 		38B8F0361D69978A00B6998B /* AppsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B8F0351D69978A00B6998B /* AppsModel.m */; };
+		38B8F0391D699BB000B6998B /* APPCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B8F0381D699BB000B6998B /* APPCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +98,8 @@
 		38B8F01D1D69969E00B6998B /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		38B8F0341D69978A00B6998B /* AppsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppsModel.h; sourceTree = "<group>"; };
 		38B8F0351D69978A00B6998B /* AppsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppsModel.m; sourceTree = "<group>"; };
+		38B8F0371D699BB000B6998B /* APPCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APPCell.h; sourceTree = "<group>"; };
+		38B8F0381D699BB000B6998B /* APPCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APPCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +139,8 @@
 				38B8EFDD1D69961100B6998B /* ViewController.m */,
 				38B8F0341D69978A00B6998B /* AppsModel.h */,
 				38B8F0351D69978A00B6998B /* AppsModel.m */,
+				38B8F0371D699BB000B6998B /* APPCell.h */,
+				38B8F0381D699BB000B6998B /* APPCell.m */,
 				38B8EFDF1D69961100B6998B /* Main.storyboard */,
 				38B8EFE21D69961100B6998B /* Assets.xcassets */,
 				38B8EFE41D69961100B6998B /* LaunchScreen.storyboard */,
@@ -299,6 +304,7 @@
 				38B8F02A1D69969E00B6998B /* SDWebImageDownloaderOperation.m in Sources */,
 				38B8F02B1D69969E00B6998B /* SDWebImageManager.m in Sources */,
 				38B8EFDE1D69961100B6998B /* ViewController.m in Sources */,
+				38B8F0391D699BB000B6998B /* APPCell.m in Sources */,
 				38B8EFDB1D69961100B6998B /* AppDelegate.m in Sources */,
 				38B8F0291D69969E00B6998B /* SDWebImageDownloader.m in Sources */,
 				38B8F0241D69969E00B6998B /* MKAnnotationView+WebCache.m in Sources */,

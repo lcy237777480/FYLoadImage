@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "AFNetworking.h"
 #import "AppsModel.h"
-#import "UIImageView+WebCache.h"
+#import "APPCell.h"
 
 @interface ViewController ()<UITableViewDataSource>
 
@@ -19,11 +19,18 @@
     
     /// 数据源数组
     NSArray *_appsList;
-
+    /// 全局队列
+    NSOperationQueue *_queue;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    // 实例化队列
+    _queue = [[NSOperationQueue alloc] init];
+    
+    
     [self loadJsonData];
 }
 #pragma UITableViewDataSource
@@ -34,21 +41,40 @@
 
 /*
  问题1 : 列表显示出来后，并不显示图片，来回滚动cell或者点击cell ，图片才会显示。
+ 解决方法：自定义cell
  */
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AppsCell" forIndexPath:indexPath];
+    APPCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AppsCell" forIndexPath:indexPath];
     
     // 获取cell对应的数据模型
     AppsModel *app = _appsList[indexPath.row];
     
-    // 给cell的子控件赋值
-    cell.textLabel.text = app.name;
-    cell.detailTextLabel.text = app.download;
+    // 给cell传入模型对象
+    cell.app = app;
     
-    //利用SDWebImage框架 下载图片
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:app.icon]];
+#pragma NSBlockOperation实现图片的异步下载
+    NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
+        
+        // 模拟网络延迟
+        [NSThread sleepForTimeInterval:0.2];
+        
+        // URL
+        NSURL *URL = [NSURL URLWithString:app.icon];
+        // data
+        NSData *data = [NSData dataWithContentsOfURL:URL];
+        // image
+        UIImage *image = [UIImage imageWithData:data];
+        
+        // 图片下载完成之后,回到主线程更新UI
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            cell.iconImageView.image = image;
+        }];
+    }];
+    
+    // 把操作添加到队列
+    [_queue addOperation:op];
     
     return cell;
 }
