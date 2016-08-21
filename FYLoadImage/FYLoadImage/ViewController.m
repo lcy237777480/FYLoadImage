@@ -63,6 +63,9 @@
  
  问题5 : 当有网络延迟时,来回滚动cell,会重复建立下载操作
  解决办法 : 操作缓存池 (字典)
+ 
+问题6 : 处理内存警告
+ 
  */
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -175,7 +178,15 @@
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+    
+    // 清除图片缓存池
+    [_imagesCache removeAllObjects];
+    // 清除操作缓存池
+    [_OPCache removeAllObjects];
+    // 清除队列里面所有的操作
+    [_queue cancelAllOperations];
+    
 }
 
 @end
