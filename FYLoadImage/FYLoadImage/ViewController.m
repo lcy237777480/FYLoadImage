@@ -21,6 +21,8 @@
     NSArray *_appsList;
     /// 全局队列
     NSOperationQueue *_queue;
+    /// 图片缓存池
+    NSMutableDictionary *_imagesCache;
 }
 
 - (void)viewDidLoad {
@@ -29,7 +31,8 @@
     
     // 实例化队列
     _queue = [[NSOperationQueue alloc] init];
-    
+    // 实例化图片缓存池
+    _imagesCache = [[NSMutableDictionary alloc] init];
     
     [self loadJsonData];
 }
@@ -46,6 +49,9 @@
  
  问题2 : 当有网络延迟时,来回滚动cell,会出现cell上图片的闪动;因为cell有复用
  解决办法 : 占位图
+ 
+ 问题3 : 图片每次展示,都要重新下载
+ 解决办法 : 设计内存缓存策略 ()
  */
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -57,6 +63,14 @@
     
     // 给cell传入模型对象
     cell.app = app;
+    
+    // 在建立下载操作之前,判断要下载的图片在图片缓存池里面有没有
+    UIImage *memImage = [_imagesCache objectForKey:app.icon];
+    if (memImage != nil) {
+        NSLog(@"从内存中加载...%@",app.name);
+        cell.iconImageView.image = memImage;
+        return cell;
+    }
     
     // 在图片下载之前,先设置占位图
     cell.iconImageView.image = [UIImage imageNamed:@"user_default"];
@@ -77,6 +91,11 @@
         // 图片下载完成之后,回到主线程更新UI
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             cell.iconImageView.image = image;
+            
+            // 把图片保存到图片缓存池
+            if (image != nil) {
+                [_imagesCache setObject:image forKey:app.icon];
+            }
         }];
     }];
     
