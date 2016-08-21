@@ -8,12 +8,18 @@
 
 #import "ViewController.h"
 #import "AFNetworking.h"
+#import "AppsModel.h"
 
 @interface ViewController ()
 
 @end
 
-@implementation ViewController
+@implementation ViewController{
+    
+    /// 数据源数组
+    NSArray *_appsList;
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,7 +37,23 @@
     // 网络请求管理者发送GET请求,获取json数据;
     // 默认是异步执行的,回调默认是主线程
     [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *responseObject) {
+        // 定义临时的可变的数组
+        NSMutableArray *tmpM = [NSMutableArray arrayWithCapacity:responseObject.count];
         
+        // 下一步 : 拿着字典数组responseObject,实现字典转模型
+        [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            // obj : 就是数组里的元素(字典)
+            AppsModel *app = [AppsModel appWithDict:obj];
+            
+            // 把模型对象添加到可变数组
+            [tmpM addObject:app];
+        }];
+        
+        // 给数据源数组赋值
+        _appsList = tmpM.copy;
+        // 刷新列表
+        [self.tableView reloadData];
 
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

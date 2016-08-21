@@ -35,6 +35,7 @@
 		38B8F0311D69969E00B6998B /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B8F0191D69969E00B6998B /* UIImageView+HighlightedWebCache.m */; };
 		38B8F0321D69969E00B6998B /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B8F01B1D69969E00B6998B /* UIImageView+WebCache.m */; };
 		38B8F0331D69969E00B6998B /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B8F01D1D69969E00B6998B /* UIView+WebCacheOperation.m */; };
+		38B8F0361D69978A00B6998B /* AppsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B8F0351D69978A00B6998B /* AppsModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +95,8 @@
 		38B8F01B1D69969E00B6998B /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		38B8F01C1D69969E00B6998B /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		38B8F01D1D69969E00B6998B /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		38B8F0341D69978A00B6998B /* AppsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppsModel.h; sourceTree = "<group>"; };
+		38B8F0351D69978A00B6998B /* AppsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppsModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +134,8 @@
 				38B8EFDA1D69961100B6998B /* AppDelegate.m */,
 				38B8EFDC1D69961100B6998B /* ViewController.h */,
 				38B8EFDD1D69961100B6998B /* ViewController.m */,
+				38B8F0341D69978A00B6998B /* AppsModel.h */,
+				38B8F0351D69978A00B6998B /* AppsModel.m */,
 				38B8EFDF1D69961100B6998B /* Main.storyboard */,
 				38B8EFE21D69961100B6998B /* Assets.xcassets */,
 				38B8EFE41D69961100B6998B /* LaunchScreen.storyboard */,
@@ -310,6 +315,7 @@
 				38B8F0221D69969E00B6998B /* AFURLResponseSerialization.m in Sources */,
 				38B8F01E1D69969E00B6998B /* AFHTTPSessionManager.m in Sources */,
 				38B8F02E1D69969E00B6998B /* UIImage+GIF.m in Sources */,
+				38B8F0361D69978A00B6998B /* AppsModel.m in Sources */,
 				38B8F0251D69969E00B6998B /* NSData+ImageContentType.m in Sources */,
 				38B8F0301D69969E00B6998B /* UIImage+WebP.m in Sources */,
 			);
