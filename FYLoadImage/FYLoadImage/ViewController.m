@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "AppsModel.h"
 #import "APPCell.h"
+#import "NSString+path.h"
 
 @interface ViewController ()<UITableViewDataSource>
 
@@ -50,8 +51,7 @@
 /*
  问题1 : 列表显示出来后，并不显示图片，来回滚动cell或者点击cell ，图片才会显示。
  解决方法：自定义cell
- 
- 
+
  问题2 : 当有网络延迟时,来回滚动cell,会出现cell上图片的闪动;因为cell有复用
  解决办法 : 占位图
  
@@ -64,8 +64,9 @@
  问题5 : 当有网络延迟时,来回滚动cell,会重复建立下载操作
  解决办法 : 操作缓存池 (字典)
  
-问题6 : 处理内存警告
+ 问题6 : 处理内存警告
  
+ 问题7 : 当程序再次启动时,内存缓存失效了;要设计沙盒缓存策略
  */
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -83,6 +84,17 @@
     if (memImage != nil) {
         NSLog(@"从内存中加载...%@",app.name);
         cell.iconImageView.image = memImage;
+        return cell;
+    }
+    
+    // 在建立下载操作之前,内存缓存判断之后,判断沙盒缓存
+    UIImage *cacheImage = [UIImage imageWithContentsOfFile:[app.icon appendCachesPath]];
+    if (cacheImage) {
+        NSLog(@"从沙盒中加载...%@",app.name);
+        // 在内存缓存保存一份
+        [_imagesCache setObject:cacheImage forKey:app.icon];
+        // 赋值
+        cell.iconImageView.image = cacheImage;
         return cell;
     }
     
@@ -112,6 +124,11 @@
         NSData *data = [NSData dataWithContentsOfURL:URL];
         // image
         UIImage *image = [UIImage imageWithData:data];
+        
+        // 实现沙盒缓存
+        if (image) {
+            [data writeToFile:[app.icon appendCachesPath] atomically:YES];
+        }
         
         // 图片下载完成之后,回到主线程更新UI
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{

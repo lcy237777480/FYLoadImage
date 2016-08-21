@@ -37,6 +37,7 @@
 		38B8F0331D69969E00B6998B /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B8F01D1D69969E00B6998B /* UIView+WebCacheOperation.m */; };
 		38B8F0361D69978A00B6998B /* AppsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B8F0351D69978A00B6998B /* AppsModel.m */; };
 		38B8F0391D699BB000B6998B /* APPCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B8F0381D699BB000B6998B /* APPCell.m */; };
+		38B8F03C1D699F1300B6998B /* NSString+path.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B8F03B1D699F1300B6998B /* NSString+path.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +101,8 @@
 		38B8F0351D69978A00B6998B /* AppsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppsModel.m; sourceTree = "<group>"; };
 		38B8F0371D699BB000B6998B /* APPCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APPCell.h; sourceTree = "<group>"; };
 		38B8F0381D699BB000B6998B /* APPCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APPCell.m; sourceTree = "<group>"; };
+		38B8F03A1D699F1300B6998B /* NSString+path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+path.h"; path = "ThirdLib/NSString+path.h"; sourceTree = "<group>"; };
+		38B8F03B1D699F1300B6998B /* NSString+path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+path.m"; path = "ThirdLib/NSString+path.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +138,8 @@
 				38B8EFED1D69969E00B6998B /* ThirdLib */,
 				38B8EFD91D69961100B6998B /* AppDelegate.h */,
 				38B8EFDA1D69961100B6998B /* AppDelegate.m */,
+				38B8F03A1D699F1300B6998B /* NSString+path.h */,
+				38B8F03B1D699F1300B6998B /* NSString+path.m */,
 				38B8EFDC1D69961100B6998B /* ViewController.h */,
 				38B8EFDD1D69961100B6998B /* ViewController.m */,
 				38B8F0341D69978A00B6998B /* AppsModel.h */,
@@ -311,6 +316,7 @@
 				38B8F0271D69969E00B6998B /* SDWebImageCompat.m in Sources */,
 				38B8F02C1D69969E00B6998B /* SDWebImagePrefetcher.m in Sources */,
 				38B8F0331D69969E00B6998B /* UIView+WebCacheOperation.m in Sources */,
+				38B8F03C1D699F1300B6998B /* NSString+path.m in Sources */,
 				38B8F02F1D69969E00B6998B /* UIImage+MultiFormat.m in Sources */,
 				38B8F01F1D69969E00B6998B /* AFNetworkReachabilityManager.m in Sources */,
 				38B8EFD81D69961100B6998B /* main.m in Sources */,
