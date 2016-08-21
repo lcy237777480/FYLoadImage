@@ -23,6 +23,8 @@
     NSOperationQueue *_queue;
     /// 图片缓存池
     NSMutableDictionary *_imagesCache;
+    /// 操作缓存池
+    NSMutableDictionary *_OPCache;
 }
 
 - (void)viewDidLoad {
@@ -33,6 +35,9 @@
     _queue = [[NSOperationQueue alloc] init];
     // 实例化图片缓存池
     _imagesCache = [[NSMutableDictionary alloc] init];
+    // 实例化操作缓存池
+    _OPCache = [[NSMutableDictionary alloc] init];
+    
     
     [self loadJsonData];
 }
@@ -55,6 +60,9 @@
  
  问题4 : 当有网络延迟时,滚动cell会出现图片错行的问题
  解决办法 : 刷新对应的行
+ 
+ 问题5 : 当有网络延迟时,来回滚动cell,会重复建立下载操作
+ 解决办法 : 操作缓存池 (字典)
  */
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -77,6 +85,12 @@
     
     // 在图片下载之前,先设置占位图
     cell.iconImageView.image = [UIImage imageNamed:@"user_default"];
+    
+    // 在建立下载操作之前,判断下载操作是否存在
+    if ([_OPCache objectForKey:app.icon] != nil) {
+        NSLog(@"正在下载中...%@",app.name);
+        return cell;
+    }
     
 #pragma NSBlockOperation实现图片的异步下载
     NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
@@ -107,8 +121,15 @@
                 // 图片下载完成之后,刷新对应的行
                 [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             }
+            
+            // 图片下载完成之后,需要把操作缓存池的操作移除
+            [_OPCache removeObjectForKey:app.icon];
+            
         }];
     }];
+    
+    // 把下载操作添加到操作缓存池
+    [_OPCache setObject:op forKey:app.icon];
     
     // 把操作添加到队列
     [_queue addOperation:op];
