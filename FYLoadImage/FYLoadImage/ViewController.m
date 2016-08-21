@@ -52,6 +52,9 @@
  
  问题3 : 图片每次展示,都要重新下载
  解决办法 : 设计内存缓存策略 ()
+ 
+ 问题4 : 当有网络延迟时,滚动cell会出现图片错行的问题
+ 解决办法 : 刷新对应的行
  */
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -77,9 +80,14 @@
     
 #pragma NSBlockOperation实现图片的异步下载
     NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
+        NSLog(@"从网络中加载...%@",app.name);
         
-        // 模拟网络延迟
-        [NSThread sleepForTimeInterval:0.2];
+        // 模拟网络延迟 : 让屏幕之外的图片的下载延迟时间比较长
+        if (indexPath.row > 9) {
+            
+            // 模拟网络延迟
+            [NSThread sleepForTimeInterval:5.0];
+        }
         
         // URL
         NSURL *URL = [NSURL URLWithString:app.icon];
@@ -95,6 +103,9 @@
             // 把图片保存到图片缓存池
             if (image != nil) {
                 [_imagesCache setObject:image forKey:app.icon];
+                
+                // 图片下载完成之后,刷新对应的行
+                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             }
         }];
     }];
