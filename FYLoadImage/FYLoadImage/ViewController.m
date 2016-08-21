@@ -42,6 +42,10 @@
 /*
  问题1 : 列表显示出来后，并不显示图片，来回滚动cell或者点击cell ，图片才会显示。
  解决方法：自定义cell
+ 
+ 
+ 问题2 : 当有网络延迟时,来回滚动cell,会出现cell上图片的闪动;因为cell有复用
+ 解决办法 : 占位图
  */
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -53,6 +57,9 @@
     
     // 给cell传入模型对象
     cell.app = app;
+    
+    // 在图片下载之前,先设置占位图
+    cell.iconImageView.image = [UIImage imageNamed:@"user_default"];
     
 #pragma NSBlockOperation实现图片的异步下载
     NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
